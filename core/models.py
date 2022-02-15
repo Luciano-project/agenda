@@ -21,3 +21,7 @@ class Evento(models.Model):
 # Aqui definimos como o django vai representar como nome das tabelas na página do Django Admin
     def __str__(self):
         return self.titulo
+
+#Formata a data que será exibida na página
+    def get_data_evento(self):
+        return self.data_evento.strftime('%d/%m/%Y hrs')

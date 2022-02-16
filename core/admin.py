@@ -4,6 +4,7 @@ from core.models import Evento
 
 # Register your models here.
 # Com esta classe determinamos as descrições sobre o evento na página do Django Admin
+
 class EventoAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'data_evento','data_criacao')
 

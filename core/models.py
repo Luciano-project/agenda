@@ -3,7 +3,8 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
-#Esta classe, a seguir, será responsável pela maniulação dos dados que serão inseridos logo mais na aplicação
+
+#Esta classe, a seguir, será responsável pela manipulação dos dados que serão inseridos logo mais na aplicação
 class Evento(models.Model):
     #Aqui teremos as confirgurações das informações que serão inseridas nos bancos de dados:
     titulo = models.CharField(max_length=100)

@@ -1,11 +1,43 @@
 from django.shortcuts import render, HttpResponse, redirect
 from .models import Evento
 
+# Para podermos permitir o acesso somente de pessoas autenticadas
+from django.contrib.auth.decorators import login_required
+
+# ** aqui estão importações relacionadas a autentificações e serão usadas adiante
+from django.contrib.auth import authenticate, login, logout
+
+
+# Caso negativo do segundo if
+from django.contrib import messages
 # Create your views here.
 
-def index(request):
-    return redirect('/agenda/')
+# def index(request):
+#    return redirect('/agenda/')
 
+def login_user(request):
+    return render(request, 'login.html')
+
+def logout_user(request):
+    logout(request)
+    return redirect('/')
+
+# Aqui vamos recuperar os itens dos formulários que temos no html
+def submit_login(request):
+    if request.POST:
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        # Antes de continuar aqui precisam ser importadas bibliotecas **
+        usuario = authenticate(username=username, password=password)
+        if usuario is not None:
+            login(request, usuario)
+            return redirect('/')
+        else:
+            messages.error(request, "Usuário ou senha inválido")
+
+    return redirect('/')
+
+@login_required(login_url= '/login/')
 #aqui estamos criando a função que irá listar os eventos
 def lista_eventos(request):
     #primeiro extraímos o objeto (do id=1) de Evento para evento

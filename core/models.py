@@ -10,7 +10,9 @@ class Evento(models.Model):
     titulo = models.CharField(max_length=100)
     descricao = models.TextField(blank=True, null=True)
     data_evento = models.DateTimeField(verbose_name='Data do Evento')
-    data_criacao= models.DateTimeField(auto_now=True)
+    data_criacao = models.DateTimeField(auto_now=True)
+    # Aqui foi desafiado a colocar mais um campo no formulário e na tabela
+    local = models.CharField(max_length=100, blank=True, null=True, verbose_name='Local')
     #** Aqui trazemos a importação do usuário. Definimos que ao excluir, tudo relacionado a ele também se vai
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -25,4 +27,11 @@ class Evento(models.Model):
 
 #Formata a data que será exibida na página
     def get_data_evento(self):
-        return self.data_evento.strftime('%d/%m/%Y hrs')
+        return self.data_evento.strftime('%d/%m/%Y %H:%M hrs')
+
+# Aqui temos a formatação correta das horas para o banco de dados
+    def get_data_evento_input(self):
+        return self.data_evento.strftime('%Y-%m-%dT%H:%M')
+
+
+

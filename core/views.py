@@ -54,7 +54,12 @@ def lista_eventos(request):
 
 @login_required(login_url='/login/')
 def evento(request):
-    return render(request,'evento.html')
+    id_evento = request.GET.get('id')
+    dados= {}
+
+    if id_evento:
+        dados['evento'] = Evento.objects.get(id=id_evento)
+    return render(request,'evento.html',dados)
 
 # Usando a verificação de login
 @login_required(login_url='/login/')
@@ -64,12 +69,33 @@ def submit_evento(request):
         titulo = request.POST.get('titulo')
         data_evento = request.POST.get('data_evento')
         descricao = request.POST.get('descricao')
+        local = request.POST.get('local')
         usuario = request.user
-        Evento.objects.create(titulo=titulo,
+        id_evento = request.POST.get('id_evento')
+        if id_evento:
+            Evento.objects.filter(id=id_evento).update(titulo=titulo,
                              data_evento=data_evento,
                              descricao=descricao,
-                             usuario=usuario)
+                             local=local)
+        else:
+            Evento.objects.create(titulo=titulo,
+                             data_evento=data_evento,
+                             descricao=descricao,
+                             usuario=usuario,
+                              local=local)
     return redirect('/')
+
+# Esta aqui é a parte responsável pela exclusão de evento
+@login_required(login_url='/login/')
+def delete_evento(request, id_evento):
+    usuario = request.user
+    evento = Evento.objects.get(id=id_evento)
+    # Aqui fazemos a validação se o usuário que quer excluir
+    #é o mesmo que está logado
+    if usuario == evento.usuario:
+        evento.delete()
+    return redirect('/')
+
 # Classe para exibir o nome de determinado evento:
 #def evento_django(request,none):
     #evedj=Evento.titulo

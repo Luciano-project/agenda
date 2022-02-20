@@ -23,10 +23,15 @@ urlpatterns = [
     path('agenda/',views.lista_eventos),
     path('agenda/evento/', views.evento),
     path('agenda/evento/submit', views.submit_evento),
+    # Criando a rota para alteração e exclusão
+    path('agenda/evento/delete/<int:id_evento>/', views.delete_evento),
+
     path('', RedirectView.as_view(url='/agenda/')),
     # Vamos redirecionar as pessoas não autenticadas para pagina de login
     path('login/', views.login_user),
     path('login/submit', views.submit_login),
     path('logout/', views.logout_user),
+
+
     #path('admin/core/evento/<nome>/', views.evento_django())
 ]

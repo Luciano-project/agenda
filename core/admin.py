@@ -6,7 +6,7 @@ from core.models import Evento
 # Com esta classe determinamos as descrições sobre o evento na página do Django Admin
 
 class EventoAdmin(admin.ModelAdmin):
-    list_display = ('titulo', 'data_evento','data_criacao')
+    list_display = ('id','titulo', 'data_evento','data_criacao','local')
 
     # Aqui podemos criar uma caixa de pesquisa (lateral) onde são exibidos de acordo
     #com nossas preferências. Podemos inserir como parâmetro referências como: 'titulo',

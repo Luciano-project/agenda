@@ -9,7 +9,9 @@ Dotado de uma interface administrativa (django-admin) é possível adicionar mai
 <br>
 <br>
 <br>
-# schedule
+<h1>schedule</h1>
 Built using Python and the framework Django and using data persistence by SQLite.
 
 This system to management the events and schedule with data register, like: title, date, description and localization. Once created the events can be edited and removed from the database.
+
+Using Django-admin is possible add more users and control the permissions they have.
